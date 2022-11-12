@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: yousouf9/payment
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: Mongo_URI
+              value: 'mongodb://payment-mongo-srv:27017/payment'
+            - name: NATS_URI
+              value: 'http://nats-srv:4222'
+            - name: JWT_KEY #name as it will appear in our pods
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret #the name of the secret key
+                  key: JWT_KEY # the key of the value provided
+                  optional: false #must be always present in our nodejs app
+            - name: PAYSTACK_TEST_KEY #name as it will appear in our pods
+              valueFrom:
+                secretKeyRef:
+                  name: paystack-secret
+                  key: PAYSTACK_TEST_KEY
+                  optional: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: payment
+  ports:
+    - name: payment
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
