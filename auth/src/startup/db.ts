@@ -4,6 +4,8 @@ import {Application} from 'express'
 
 export const startDB = async(app: Application) => {
 
+  console.log("Initialing Application");
+  
   if(!process.env.JWT_KEY){
     throw new Error('JWT_KEY is required')
   }
