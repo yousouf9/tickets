@@ -7,7 +7,7 @@ jobs:
   steps:
    - uses: actions/checkout@v3
    - name: Auth Test
-     with:
+     env:
       JWT_KEY: ${{ secrets.JWT_KEY }}
-   - run: cd auth && npm i && npm run test:ci
+     run: cd auth && npm i && npm run test:ci
    
