@@ -10,4 +10,3 @@ jobs:
      env:
       JWT_KEY: ${{ secrets.JWT_KEY }}
      run: cd auth && npm i && npm run test:ci
-   
