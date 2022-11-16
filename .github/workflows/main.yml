@@ -5,9 +5,9 @@ jobs:
  build:
   runs-on: ubuntu-latest
   steps:
-   - name: Auth Test
-     env:
-      JWT_KEY: ${{ secrets.JWT_KEY }}
    - uses: actions/checkout@v3
+   - name: Auth Test
+     with:
+      JWT_KEY: ${{ secrets.JWT_KEY }}
    - run: cd auth && npm i && npm run test:ci
    
