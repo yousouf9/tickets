@@ -1,6 +1,8 @@
 name: auths-test
 on:
- pull_request
+ pull_request:
+  paths:
+    - 'auth/**'
 jobs:
  build:
   runs-on: ubuntu-latest
