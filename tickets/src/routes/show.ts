@@ -19,5 +19,4 @@ router.get('/:id', async (req:Request, res: Response) => {
   res.status(200).send(ticket);
 })
 
-
 export {router as TicketRouter}

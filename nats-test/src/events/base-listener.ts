@@ -7,7 +7,6 @@ interface Event {
   data:any,
 }
 
-
 export abstract class Listener<T extends Event>{
   private client: Stan;
 
